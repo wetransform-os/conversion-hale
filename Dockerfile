@@ -16,7 +16,7 @@ ENV DATA_DIR /opt/data
 
 # Install needed utilities and setup folders
 RUN apt-get update -y && \
-  apt-get install -y curl && \
+  apt-get install -y curl unzip && \
   apt-get autoremove -y && \
   apt-get clean && \
   mkdir -p /opt/data
