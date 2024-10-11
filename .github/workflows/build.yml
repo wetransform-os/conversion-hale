@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    uses: wetransform/gha-workflows/.github/workflows/dockerfile-build.yml@29e290cf68d621110f6eac3da7914b145c909f63 # v3.0.0
+    uses: wetransform/gha-workflows/.github/workflows/dockerfile-build.yml@733faab9b81e9c64de96ae12a251b3b76111a4eb # v3.1.0
     with:
       image: wetransform/conversion-hale
       tag: ci
