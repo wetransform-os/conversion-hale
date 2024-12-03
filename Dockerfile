@@ -2,12 +2,12 @@ FROM wetransform/hale-cli:6.0.1
 MAINTAINER Simon Templer <simon@wetransform.to>
 
 # add build info - see hooks/build and http://label-schema.org/
-ARG BUILD_DATE
-ARG VCS_REF
-ARG VCS_URL
-LABEL org.opencontainers.image.created=$BUILD_DATE \
-  org.opencontainers.image.source=$VCS_URL \
-  org.opencontainers.image.revision=$VCS_REF
+# ARG BUILD_DATE
+# ARG VCS_REF
+# ARG VCS_URL
+# LABEL org.opencontainers.image.created=$BUILD_DATE \
+#   org.opencontainers.image.source=$VCS_URL \
+#   org.opencontainers.image.revision=$VCS_REF
 
 USER root
 
