@@ -1,0 +1,29 @@
+---
+#
+# PLEASE NOTE: Managed workflow - do not change manually
+#
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: {}
+
+concurrency:
+  # only run one publishing at a time to avoid conflicts
+  group: publish-${{ github.ref }}
+
+jobs:
+  publish:
+    # Only on main repository (don't publish on forks)
+    if: github.repository_owner == 'wetransform-os'
+
+    uses: wetransform/gha-workflows/.github/workflows/dockerfile-publish.yml@39472b0820006f75ebd19b348939b163d7bd8a6a # v3.3.2
+    with:
+      image: wetransform/conversion-hale
+      tag: latest
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      SLACK_NOTIFICATIONS_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
