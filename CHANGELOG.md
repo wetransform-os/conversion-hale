@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/wetransform-os/conversion-hale/compare/v1.0.0...v1.0.1) (2024-12-03)
+
+### Bug Fixes
+
+* **deps:** update hale-cli to 6.1.0 ([5d67b4a](https://github.com/wetransform-os/conversion-hale/commit/5d67b4a6a82d4fa66b35587c6b0fc9c19d746fc0))
+
 ## 1.0.0 (2024-12-03)
 
 ### Features
