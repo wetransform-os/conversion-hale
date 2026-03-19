@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/wetransform-os/conversion-hale/compare/v1.0.1...v1.0.2) (2026-03-19)
+
+### Bug Fixes
+
+* base image updates are fixes ([57fa204](https://github.com/wetransform-os/conversion-hale/commit/57fa204e1734118d255c94e1bc077fceed2521cc))
+
 ## [1.0.1](https://github.com/wetransform-os/conversion-hale/compare/v1.0.0...v1.0.1) (2024-12-03)
 
 ### Bug Fixes
