@@ -10,6 +10,5 @@ jobs:
   test:
     uses: wetransform/gha-workflows/.github/workflows/gradle-library-check.yml@1e60dcabbcf6acccf458c4626baaef1db63f9a8a # v4.1.3
     with:
-      java-version: 17
       multi-module: false
       skip-scan: true
