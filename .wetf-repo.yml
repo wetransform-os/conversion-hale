@@ -6,3 +6,7 @@ presets:
   - dockerfile
   - renovate
   - workflows-default
+
+# List of custom required checks
+required_checks:
+  - test / check / run

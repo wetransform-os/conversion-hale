@@ -1,0 +1,29 @@
+plugins {
+  id 'java'
+  id 'to.wetransform.conventions' version '3.0.0'
+}
+
+wetransform {
+  setup()
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testImplementation testLibs.junit.jupiter
+  testImplementation testLibs.testcontainers.junit
+  testRuntimeOnly testLibs.junit.platform.launcher
+
+  testImplementation testLibs.slf4j.simple
+}
+
+tasks.register('buildDockerImage', Exec) {
+  commandLine 'docker', 'build', '-t', 'wetransform/conversion-hale:test', '.'
+}
+
+test {
+  useJUnitPlatform()
+  dependsOn buildDockerImage
+}
