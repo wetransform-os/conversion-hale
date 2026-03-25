@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:gml="http://www.opengis.net/gml/3.2"
+  xmlns:tns="http://www.esdi-humboldt.eu/hale/gpkg"
+  targetNamespace="http://www.esdi-humboldt.eu/hale/gpkg"
+  elementFormDefault="qualified"
+  version="1.0">
+
+  <import namespace="http://www.opengis.net/gml/3.2"
+    schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+
+  <!-- Feature type -->
+  <element name="test_feature" type="tns:test_feature"
+    substitutionGroup="gml:AbstractFeature"/>
+
+  <complexType name="test_feature">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element name="name" type="string" minOccurs="0"/>
+          <element name="value" type="double" minOccurs="0"/>
+          <element name="geom" type="gml:PointPropertyType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+</schema>
