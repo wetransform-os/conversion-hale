@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    uses: wetransform/gha-workflows/.github/workflows/gradle-library-check.yml@906990fde86426c27eb355b1600afbcda8fddc25 # v4.1.5
+    uses: wetransform/gha-workflows/.github/workflows/gradle-library-check.yml@32c81994f6677a00a9d5f1fec6338ad15e641fe0 # v4.6.0
     with:
       multi-module: false
       skip-scan: true
