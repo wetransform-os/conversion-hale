@@ -23,7 +23,12 @@ tasks.register('buildDockerImage', Exec) {
   commandLine 'docker', 'build', '-t', 'wetransform/conversion-hale:test', '.'
 }
 
+tasks.register('buildDockerImageNoOrientDB', Exec) {
+  commandLine 'docker', 'build', '-t', 'wetransform/conversion-hale:test-no-orientdb', 'no-orientdb'
+}
+
 test {
   useJUnitPlatform()
   dependsOn buildDockerImage
+  dependsOn buildDockerImageNoOrientDB
 }

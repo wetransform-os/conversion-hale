@@ -1,0 +1,19 @@
+---
+#
+# Build and scan the OrientDB-free image variant on pull requests.
+# Not a managed workflow - mirrors tf-check.yml but builds the no-orientdb/ context.
+#
+name: Check (no OrientDB)
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check:
+    uses: wetransform/gha-workflows/.github/workflows/dockerfile-build.yml@efabecf2fba436e990a9f9865ed4532845e1e710 # v4.6.1
+    with:
+      image: wetransform/conversion-hale
+      tag: pr-no-orientdb
+      context: no-orientdb

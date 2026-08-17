@@ -1,0 +1,61 @@
+---
+#
+# Publish the OrientDB-free image variant.
+# Not a managed workflow - complements the managed tf-publish.yml / tf-release.yml, which
+# publish the default (OrientDB-containing) image. This builds the no-orientdb/ context and
+# publishes it under a "-no-orientdb" tag suffix on the same image name:
+#   - push to master        -> wetransform/conversion-hale:latest-no-orientdb
+#   - GitHub release created -> wetransform/conversion-hale:<version>-no-orientdb
+# The release trigger reacts to the release created by the managed semantic-release flow.
+#
+name: Publish (no OrientDB)
+
+on:
+  push:
+    branches:
+      - master
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+concurrency:
+  # separate from the managed publish group so it does not cancel tf-publish / tf-release
+  group: publish-no-orientdb-${{ github.ref }}
+
+jobs:
+  meta:
+    # Only on main repository (don't publish on forks)
+    if: github.repository_owner == 'wetransform-os'
+    runs-on: ${{ vars.CUSTOM_RUNNER || 'ubuntu-latest' }}
+    outputs:
+      tag: ${{ steps.determine.outputs.tag }}
+      ref: ${{ steps.determine.outputs.ref }}
+    steps:
+      - name: Determine tag and checkout ref
+        id: determine
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            # strip a leading "v" from the release tag (e.g. v1.0.5 -> 1.0.5)
+            version="${{ github.event.release.tag_name }}"
+            version="${version#v}"
+            echo "tag=${version}-no-orientdb" >> "$GITHUB_OUTPUT"
+            echo "ref=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=latest-no-orientdb" >> "$GITHUB_OUTPUT"
+            echo "ref=" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    needs: meta
+    if: github.repository_owner == 'wetransform-os'
+
+    uses: wetransform/gha-workflows/.github/workflows/dockerfile-publish.yml@efabecf2fba436e990a9f9865ed4532845e1e710 # v4.6.1
+    with:
+      image: wetransform/conversion-hale
+      tag: ${{ needs.meta.outputs.tag }}
+      context: no-orientdb
+      checkout-ref: ${{ needs.meta.outputs.ref }}
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      SLACK_NOTIFICATIONS_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
