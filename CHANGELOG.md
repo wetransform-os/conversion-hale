@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/wetransform-os/conversion-hale/compare/v1.1.1...v1.1.2) (2026-11-26)
+
+### Bug Fixes
+
+* **deps:** update wetransform/hale-cli docker tag to v6.3.0 ([f781396](https://github.com/wetransform-os/conversion-hale/commit/f781396b47eacec485d9de95cacdc0ba69f4521a))
+* **deps:** update wetransform/hale-cli docker tag to v6.3.2 ([ea1a148](https://github.com/wetransform-os/conversion-hale/commit/ea1a1483d0cedb3ecd60ac539bae6a038fe3ab78))
+
 ## [1.1.1](https://github.com/wetransform-os/conversion-hale/compare/v1.1.0...v1.1.1) (2026-09-04)
 
 ### Bug Fixes
