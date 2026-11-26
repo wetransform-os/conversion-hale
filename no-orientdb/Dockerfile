@@ -1,4 +1,4 @@
-FROM wetransform/hale-cli:6.3.2
+FROM wetransform/hale-cli:7.0.0
 MAINTAINER Simon Templer <simon@wetransform.to>
 
 # add build info - see hooks/build and http://label-schema.org/
