@@ -27,11 +27,8 @@ public class ConversionTest {
 
   private static final Logger log = LoggerFactory.getLogger(ConversionTest.class);
 
-  /** Default image, based on hale-cli, including OrientDB. */
+  /** Image under test, based on hale-cli. */
   private static final String IMAGE = "wetransform/conversion-hale:test";
-
-  /** Alternative image variant with the OrientDB dependency removed. */
-  private static final String IMAGE_NO_ORIENTDB = "wetransform/conversion-hale:test-no-orientdb";
 
   @Test
   public void testHaleVersion() throws InterruptedException {
@@ -61,18 +58,16 @@ public class ConversionTest {
   }
 
   @Test
-  public void testNoOrientDbVariantExcludesOrientDb() throws InterruptedException {
-    // The vulnerable OrientDB dependency and its graph stack (orientdb-core, orientdb-nativeos,
-    // orient-commons, and the *-orientDB* gremlin/pipes/blueprints jars) must not be present
-    // ANYWHERE in the image filesystem - vulnerability scanners (grype/trivy) inventory files on
-    // disk regardless of the classpath, and the base image ships these jars in more than one
-    // directory (/hale/lib and /app/libs). The hale wrapper bundles
-    // (eu.esdihumboldt.hale.common.*.orient-*.jar) are deliberately not matched here - they remain.
+  public void testImageExcludesOrientDb() throws InterruptedException {
+    // hale-cli no longer ships OrientDB (CVE-2017-11467 in orientdb-core) since v7. Guard against
+    // it being reintroduced: no OrientDB-related jar may be present ANYWHERE in the image
+    // filesystem, as vulnerability scanners (grype/trivy) inventory files on disk regardless of
+    // the classpath.
     var checkCmd = "matches=$(find / -type f -name '*.jar' 2>/dev/null "
-      + "| grep -iE 'orientdb-|orient-commons|orientDB'); echo \"$matches\"; [ -z \"$matches\" ]";
+      + "| grep -i 'orient'); echo \"$matches\"; [ -z \"$matches\" ]";
 
     try (GenericContainer<?> container = new GenericContainer<>(
-      DockerImageName.parse(IMAGE_NO_ORIENTDB))
+      DockerImageName.parse(IMAGE))
       .withCommand("sh", "-c", checkCmd)
       .withLogConsumer(new Slf4jLogConsumer(log).withPrefix("hale"))) {
 
@@ -85,17 +80,8 @@ public class ConversionTest {
 
       // exit code 0 means grep found no matching OrientDB jars
       var state = container.getContainerInfo().getState();
-      assertEquals(0, state.getExitCodeLong(), "OrientDB jars should be absent from the no-orientdb image");
+      assertEquals(0, state.getExitCodeLong(), "OrientDB jars should be absent from the image");
     }
-  }
-
-  @Test
-  public void testConvertGpkgToGmlNoOrientDb()
-    throws UnsupportedOperationException, IOException, InterruptedException {
-    // The GML rewrite use case must still work without OrientDB as temporary storage.
-    runGpkgConversion(IMAGE_NO_ORIENTDB, "test.gpkg", "test-gpkg.xsd", file -> {
-      verifyGmlFeatureCount(file, 3);
-    });
   }
 
   private void verifyGmlFeatureCount(File gmlFile, int expectedFeatures) {
