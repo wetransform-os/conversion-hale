@@ -1,3 +1,19 @@
+## [2.0.0](https://github.com/wetransform-os/conversion-hale/compare/v1.1.2...v2.0.0) (2026-11-27)
+
+### ⚠ BREAKING CHANGES
+
+* the `latest-no-orientdb` and `<version>-no-orientdb` image
+tags are no longer published. Use the default image tags instead, which no
+longer include OrientDB.
+
+### Bug Fixes
+
+* **deps:** update wetransform/hale-cli docker tag to v7 ([4403928](https://github.com/wetransform-os/conversion-hale/commit/44039287035bba287d6e4942f9dcb944d9f266e2))
+
+### Code Refactoring
+
+* remove no-orientdb image variant ([3f19984](https://github.com/wetransform-os/conversion-hale/commit/3f19984e625017ca0c2c21ad45e6cb11e888f46c)), closes [ING-5486](https://wetransform.atlassian.net/browse/ING-5486)
+
 ## [1.1.2](https://github.com/wetransform-os/conversion-hale/compare/v1.1.1...v1.1.2) (2026-11-26)
 
 ### Bug Fixes
