@@ -2,11 +2,10 @@
 
 Docker image for format conversion based on hale-cli using wetransform conversion-service.
 
-## Image variants
+## Image tags
 
-- `wetransform/conversion-hale:latest` / `:<version>` — the default image.
-- `wetransform/conversion-hale:latest-no-orientdb` / `:<version>-no-orientdb` — same image with
-  the OrientDB dependency removed (see [`no-orientdb/Dockerfile`](no-orientdb/Dockerfile)). OrientDB
-  is only used by hale as temporary instance storage, which is not needed for the data rewrite
-  (e.g. GML) use case. Removing it eliminates CVE-2017-11467 (`orientdb-core`). Use this variant
-  where images must be free of high-risk CVEs, e.g. on-premise deployments.
+- `wetransform/conversion-hale:latest` / `:<version>`
+
+The former `-no-orientdb` variant (`latest-no-orientdb` / `<version>-no-orientdb`) has been
+discontinued: since hale-cli 7 OrientDB is no longer part of hale, so the default image is free of
+it (and of CVE-2017-11467). Use the default image instead; the old tags no longer receive updates.
