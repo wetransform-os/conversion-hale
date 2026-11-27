@@ -1,5 +1,4 @@
 FROM wetransform/hale-cli:7.0.0
-MAINTAINER Simon Templer <simon@wetransform.to>
 
 # add build info - see hooks/build and http://label-schema.org/
 # ARG BUILD_DATE
@@ -12,7 +11,7 @@ MAINTAINER Simon Templer <simon@wetransform.to>
 USER root
 
 # data directory - not using the base images volume because then the permissions cannot be adapted
-ENV DATA_DIR /opt/data
+ENV DATA_DIR=/opt/data
 
 # Install needed utilities and setup folders
 RUN apt-get update -y && \
