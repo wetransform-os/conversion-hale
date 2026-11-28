@@ -2,7 +2,7 @@
 java = "temurin-17.0.21.1+2"
 
 # git hooks
-hk = "2.13.0"
+hk = "2.14.0"
 
 [hooks]
 enter = "mise x -- hk install --mise"
